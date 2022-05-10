@@ -11,8 +11,8 @@
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*"],
-      "@/*": ["src/*"],
     },
+    "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
