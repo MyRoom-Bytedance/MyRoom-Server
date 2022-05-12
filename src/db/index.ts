@@ -11,7 +11,7 @@ const dataSource = new DataSource({
   password: MYSQL_PWD,
   database: MYSQL_DB,
   synchronize: process.env.NODE_ENV === "development",
-  entities: [__dirname + "/../entity/**/*.js", __dirname + "/../entity/**/*.ts"],
+  entities: ["src/entity/*.ts"],
 });
 
 export default dataSource;
