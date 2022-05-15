@@ -21,13 +21,13 @@ export class UserService {
     if (user) {
       return user;
     } else {
-      throw new Error('User already exists');
+      throw new Error("User is no exists");
     }
   }
   public static async getUser(username: string) {
       const user = await userRepository.findOneBy({ username });
       if(!user) {
-          throw new Error("User don't has");
+          throw new Error("User is no exists");
       } else {
           return user;
       }
