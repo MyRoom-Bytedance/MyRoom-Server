@@ -10,13 +10,13 @@ export default class UserController {
     try {
       const res = await UserService.createUser(username, password);
       ctx.body = {
-        code: 200,
+        status: 200,
         msg: "success",
         data: res,
       };
     } catch (err) {
       ctx.body = {
-        code: 403,
+        status: 403,
         msg: err.message,
       };
     };
@@ -35,14 +35,14 @@ export default class UserController {
         } // 60 * 60 s
       );
       ctx.body = {
-        code: 200,
+        status: 200,
         msg: "login success!!",
         data: res,
         token
       };
     } catch (err) {
       ctx.body = {
-        code: 403,
+        status: 403,
         msg: err.message,
       };
     };
@@ -52,13 +52,13 @@ export default class UserController {
     try {
       const res = await UserService.getUser(username + '');
       ctx.body = {
-        code: 200,
+        status: 200,
         msg: "success",
         data: res,
       };
     } catch (err) {
       ctx.body = {
-        code: 403,
+        status: 403,
         msg: err.message,
       };
     };
