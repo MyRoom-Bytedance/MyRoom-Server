@@ -1,6 +1,9 @@
 import { Context } from "koa";
 import { UserService } from "../service/user";
-
+import config from "../config"
+import jwt from "jsonwebtoken"
+const {JWT_SECRET} = config
+ 
 export default class UserController {
   public static async register(ctx: Context) {
     const { username, password } = ctx.request.body;
@@ -22,10 +25,20 @@ export default class UserController {
     const { username, password } = ctx.request.body;
     try {
       const res = await UserService.findUser(username, password);
+      const token = jwt.sign(
+        {
+            name: username
+        },
+        JWT_SECRET + '', // secret
+        { 
+          expiresIn: 60 * 60 
+        } // 60 * 60 s
+      );
       ctx.body = {
         code: 200,
         msg: "login success!!",
-        data: res
+        data: res,
+        token
       };
     } catch (err) {
       ctx.body = {

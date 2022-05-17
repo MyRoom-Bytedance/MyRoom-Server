@@ -6,8 +6,8 @@ import logger from "./utils/logger";
 import router from "./router";
 import config from './config';
 import dataSource from './db';
-
-const { APP_PORT } = config;
+import koajwt from 'koa-jwt'
+const { APP_PORT, JWT_SECRET } = config;
 
 dataSource.initialize().then(() => {
   const app = new Koa();
@@ -15,7 +15,11 @@ dataSource.initialize().then(() => {
   app.use(logger());
   app.use(cors());
   app.use(bodyParser());
-
+  app.use(koajwt({
+    secret: JWT_SECRET + ''
+  }).unless({ // 配置白名单
+    path: [/\/register/, /\/login/]
+  }))
   app.use(router.routes()).use(router.allowedMethods());
 
   app.listen(APP_PORT, () => {
