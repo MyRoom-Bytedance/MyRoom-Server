@@ -8,6 +8,8 @@ user.post('/register', UserController.register);
 
 user.post('/login', UserController.login);
 
+user.post('/verifiy',UserController.verifiy)
+
 user.get('/info',UserController.getInfo)
 
 export default user
