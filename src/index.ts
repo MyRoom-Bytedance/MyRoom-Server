@@ -18,7 +18,7 @@ dataSource.initialize().then(() => {
   app.use(koajwt({
     secret: JWT_SECRET + ''
   }).unless({ // 配置白名单
-    path: [/\/user\/register/, /\/user\/login/,/\/user\/verifiy/]
+    path: [/\/user\/register/, /\/user\/login/,/\/user\/verify/]
   }))
   app.use(router.routes()).use(router.allowedMethods());
 

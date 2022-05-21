@@ -47,7 +47,7 @@ export default class UserController {
       };
     };
   }
-  public static async verifiy(ctx: Context) {
+  public static async verify(ctx: Context) {
     const { mobile , captcha } = ctx.request.body;
     try {
         if(captcha) {
@@ -61,6 +61,7 @@ export default class UserController {
                   expiresIn: 60 * 60 
                 } // 60 * 60 s
               );
+              
               ctx.body = {
                 status: 200,
                 msg: "login success!!",
