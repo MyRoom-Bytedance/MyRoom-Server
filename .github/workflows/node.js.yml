@@ -1,0 +1,26 @@
+name: auto deploy
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.15.0]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run build
+    - run: |
+        eval $(ssh-agent -s)
+        echo "${{secrets.SSH_KEY}}" > deploy.key
+        mkdir -p ~/.ssh
+        chmod 0600 deploy.key
+        ssh-add deploy.key
+        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        ssh root@${{secrets.HOST}} "sh /root/myroom-server/deploy.sh"
