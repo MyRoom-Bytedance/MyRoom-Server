@@ -23,4 +23,4 @@ jobs:
         chmod 0600 deploy.key
         ssh-add deploy.key
         echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-        ssh root@${{secrets.HOST}} "sh /root/myroom-server/deploy.sh"
+        ssh root@${{secrets.HOST}} "bash -i /root/myroom-server/deploy.sh"
