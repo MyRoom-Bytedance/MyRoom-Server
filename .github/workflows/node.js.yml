@@ -1,43 +1,26 @@
-name: Node.js CI
+name: auto deploy
 on:
   push:
-    branches: [ main ] #监听master分支的push事件
-  pull_request:
     branches: [ main ]
 jobs:
   build:
-    runs-on: ubuntu-latest #指定运行环境为最新的Ubuntu版本
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.15.0] #指定node版本
+        node-version: [16.15.0]
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }} #使用action安装node环境
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install #安装项目依赖
-    - run: npm run build #build项目
-    
-    - name: ssh scp ssh pipelines #使用市场找到的action来将项目build的产物传到服务器
-      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-      env:
-        WELCOME: "ssh scp ssh pipelines"
-        LASTSSH: "Doing something after copying"
-      with:
-        host: ${{ secrets.HOST }} # 服务器的ip
-        user: ${{ secrets.USER }} # 服务器的账号
-        pass: ${{ secrets.PASSWORD }} # 服务器的密码
-        connect_timeout: 10s
-        first_ssh: | #这部分是在服务器上，传输文件前执行的命令，关闭并删除运行中的旧版本
-          pm2 delete all
-          cd /root/myroom-server
-          rm -rf dist
-        scp: | #将build生成的文件从GitHub服务器的相应目录，传到服务器的相应目录
-          ./dist => /root/myroom-server
-          ./package.json => /root/myroom-server
-          ./yarn.lock => /root/myroom-server
-        last_ssh: | #这部分是在服务器上，传输文件后执行的命令，新版本重新安装依赖并运行
-          cd /root/myroom-server
-          npm install
-          pm2 start ./dist/index.js
+    - run: npm install
+    - run: npm run build
+    - run: |
+        eval $(ssh-agent -s)
+        echo "${{secrets.SSH_KEY}}" > deploy.key
+        mkdir -p ~/.ssh
+        chmod 0600 deploy.key
+        ssh-add deploy.key
+        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        ssh root@${{secrets.HOST}} "sh /root/myroom-server/deploy.sh"
