@@ -1,9 +1,9 @@
 import Router from '@koa/router';
 
-import UserController from '../controller/user';
+import user  from './user' 
 
-const router = new Router();
+const router = new Router()
 
-router.post('/user/register', UserController.register);
+router.use('/user', user.routes(), user.allowedMethods())
 
 export default router;
