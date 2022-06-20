@@ -13,7 +13,10 @@ export class HomeService {
       id,
     });
     if (!home) {
-      throw new Error("Home not found");
+      throw {
+        code: 403,
+        message: "Home not found",
+      }
     } else {
       return home;
     }

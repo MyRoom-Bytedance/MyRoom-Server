@@ -13,23 +13,30 @@ export class UserService {
       await userRepository.save(newUser);
       return newUser;
     } else {
-      throw new Error('User already exists');
+      throw {
+        code: 403,
+        message: "User is already exists",
+      }
     }
   }
   public static async findUser(username: string, password: string) {
     const user = await userRepository.findOneBy({ username, password });
-    if (user) {
-      return user;
-    } else {
-      throw new Error("User is no exists");
+    if (!user) {
+      throw {
+        code: 403,
+        message: "User is not exists",
+      }
     }
+    return user;
   }
   public static async getUser(username: string) {
       const user = await userRepository.findOneBy({ username });
-      if(!user) {
-          throw new Error("User is no exists");
-      } else {
-          return user;
+      if (user) {
+        throw {
+          code: 403,
+          message: "User is not exists",
+        }
       }
+      return user;
   }
 }
