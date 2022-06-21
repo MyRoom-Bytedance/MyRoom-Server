@@ -28,7 +28,7 @@ dataSource
           /\/user\/register/,
           /\/user\/login/,
           /\/home\/list/,
-          /\/home\//,
+          /\/home\/details/,
         ],
       })
     );

@@ -4,9 +4,9 @@ export default function catcherror() {
     try {
       await next();
     } catch (err) {
-      if (err?.code === 403) {
+      if (err?.code === 403 || err.status === 401) {
         return ctx.body = {
-          status: 403,
+          status: err?.code || err.status,
           msg: err.message,
         };
       } else {
