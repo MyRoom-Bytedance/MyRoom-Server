@@ -27,7 +27,6 @@ dataSource
         path: [
           /\/user\/register/,
           /\/user\/login/,
-          /\/user\/verify/,
           /\/home\/list/,
           /\/home\//,
         ],

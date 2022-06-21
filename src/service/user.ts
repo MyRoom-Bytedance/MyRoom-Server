@@ -1,5 +1,5 @@
-import { User } from '../entity/user';
-import dataSource from '../db';
+import { User } from "../entity/user";
+import dataSource from "../db";
 
 const userRepository = dataSource.getRepository(User);
 
@@ -16,27 +16,27 @@ export class UserService {
       throw {
         code: 403,
         message: "User is already exists",
-      }
+      };
     }
   }
-  public static async findUser(username: string, password: string) {
+  public static async login(username: string, password: string) {
     const user = await userRepository.findOneBy({ username, password });
     if (!user) {
       throw {
         code: 403,
-        message: "User is not exists",
-      }
+        message: "Wrong username or password",
+      };
     }
     return user;
   }
-  public static async getUser(username: string) {
-      const user = await userRepository.findOneBy({ username });
-      if (user) {
-        throw {
-          code: 403,
-          message: "User is not exists",
-        }
-      }
-      return user;
+  public static async findUserById(id: string) {
+    const user = await userRepository.findOneBy({ id });
+    if (!user) {
+      throw {
+        code: 403,
+        message: "User is not exists",
+      };
+    }
+    return user;
   }
 }

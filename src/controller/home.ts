@@ -1,6 +1,6 @@
 import { Context } from "koa";
 import { HomeService } from "../service/home";
-// import { HomeRequest } from "../type/home";
+import { HomeRequest } from "../type/home";
 
 export default class HomeController {
   public static async getList(ctx: Context) {
@@ -40,18 +40,17 @@ export default class HomeController {
   }
   // public static async addHome(ctx: Context) {
   //   const body: HomeRequest = ctx.request.body;
-  //   try {
-  //     const res = await HomeService.addHome(body);
-  //     ctx.body = {
-  //       status: 200,
-  //       msg: "success",
-  //       data: res,
-  //     };
-  //   } catch (err) {
-  //     ctx.body = {
-  //       status: 403,
-  //       msg: err.message,
-  //     };
+  //   if (!body.listing_name || !body.pricing || !body.floor_plan_room || !body.floor_plan_hall || !body.squaremeter || !body.total_floor || !body.description) {
+  //     throw {
+  //       code: 403,
+  //       message: "Invalid params",
+  //     }
   //   }
+  //   const res = await HomeService.addHome(body);
+  //   ctx.body = {
+  //     status: 200,
+  //     msg: "success",
+  //     data: res,
+  //   };
   // }
 }
