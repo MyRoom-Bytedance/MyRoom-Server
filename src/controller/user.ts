@@ -44,4 +44,14 @@ export default class UserController {
       token: Auth.sign(ctx, res.id),
     };
   }
+
+  public static async update(ctx: Context) {
+    const id = ctx.state.user.id;
+    const body = ctx.request.body;
+    await UserService.updateUser(id, body);
+    ctx.body = {
+      status: 200,
+      msg: "success",
+    }
+  }
 }

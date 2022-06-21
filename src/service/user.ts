@@ -39,4 +39,33 @@ export class UserService {
     }
     return user;
   }
+  public static async updateUser(id: string, body: any) {
+    const user = await userRepository.findOneBy({ id });
+    if (!user) {
+      throw {
+        code: 403,
+        message: "User is not exists or token has expired, please try to login again",
+      };
+    }
+    if (body.hasOwnProperty('pre_password') && body.hasOwnProperty('new_password')) {
+      if (user.password != body.pre_password) {
+        throw {
+          code: 403,
+          message: "Wrong old password",
+        };
+      }
+      user.password = body.new_password;
+    }
+    if (body.hasOwnProperty("username")) {
+      const old_user = await userRepository.findOneBy({ username: body.username });
+      if (old_user && old_user.id != id) {
+        throw {
+          code: 403,
+          message: "username is already exists",
+        }
+      }
+      user.username = body.username;
+    }
+    await userRepository.save(user);
+  }
 }

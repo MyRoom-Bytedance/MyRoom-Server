@@ -8,6 +8,8 @@ user.post('/register', UserController.register);
 
 user.post('/login', UserController.login);
 
-user.get('/info',UserController.getInfo);
+user.get('/info', UserController.getInfo);
 
-export default user
+user.post('/update', UserController.update);
+
+export default user;
