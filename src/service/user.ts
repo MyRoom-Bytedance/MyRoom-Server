@@ -34,7 +34,7 @@ export class UserService {
     if (!user) {
       throw {
         code: 403,
-        message: "User is not exists",
+        message: "User is not exists or token has expired, please try to login again",
       };
     }
     return user;
