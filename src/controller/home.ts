@@ -42,7 +42,7 @@ export default class HomeController {
   public static async addHome(ctx: Context) {
     const body: HomeRequest = ctx.request.body;
     const id = ctx.state.user.id;
-    if (!body.listing_name || !body.pricing || !body.floor_plan_room || !body.floor_plan_hall || !body.squaremeter || !body.total_floor || !body.description) {
+    if (!body.listing_name || !body.pricing || !body.floor_plan_room || !body.floor_plan_hall || !body.squaremeter || !body.total_floor) {
       throw {
         code: 403,
         message: "Invalid params",
