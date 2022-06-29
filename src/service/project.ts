@@ -6,8 +6,9 @@ import {Project} from "../entity/project";
 const projectRepository = dataSource.getRepository(Project);
 
 export class ProjectService {
-  public static async getList(size: number, offset: number) {
-    const projects = await projectRepository.createQueryBuilder().skip(offset).take(size).getMany();
+  public static async getList() {
+    // 获取全部项目
+    const projects = await projectRepository.find();
     return projects;
   }
   public static async getDetailsById(id: number) {

@@ -5,16 +5,8 @@ import {UserService} from "../service/user";
 
 export default class ProjectController {
   public static async getList(ctx: Context) {
-    const size = Number(ctx.request.query.size || 10);
-    const offset = Number(ctx.request.query.offset || 0);
-    if (isNaN(size) || isNaN(offset) || size < 0 || offset < 0) {
-      throw {
-        code: 403,
-        message: "Invalid params",
-      };
-    }
 
-    const res = await ProjectService.getList(size, offset);
+    const res = await ProjectService.getList();
 
     ctx.body = {
       status: 200,
