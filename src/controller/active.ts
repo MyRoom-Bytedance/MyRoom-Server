@@ -12,16 +12,17 @@ export default class ActiveController {
   }
 
   public static async setActiveProject(ctx: Context) {
-    const projectId = Number(ctx.request.query.projectId);
+    const projectId = Number(ctx.request.query.id);
     if (!projectId) {
       throw {
         code: 403,
       }
     }
-    await ActiveService.setActiveProject(projectId);
+    const active = await ActiveService.setActiveProject(projectId);
     ctx.body = {
       status: 200,
       msg: "success",
+      data: active
     };
   }
 }

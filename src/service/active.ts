@@ -9,10 +9,10 @@ export class ActiveService {
 
   public static async getActiveProject() {
 
-    const active = await activeRepository.createQueryBuilder().getOne();
+    const active = await activeRepository.createQueryBuilder().leftJoinAndSelect("Active.project", "project").getOne();
     if (!active || !active.project) {
       const projects = await ProjectService.getList();
-      await this.addActiveProject(projects[0]);
+      await this.setActiveProject(projects[0].id);
       return projects[0];
     } else {
       return active.project;
@@ -31,7 +31,7 @@ export class ActiveService {
         project,
       });
     }
-    return active;
+    return project;
   }
 
   public static async addActiveProject(project: Project) {
