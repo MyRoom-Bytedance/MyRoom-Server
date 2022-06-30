@@ -33,7 +33,7 @@ export default class ProjectController {
   }
   public static async addProject(ctx: Context) {
     const body: ProjectRequest = ctx.request.body;
-    const id = ctx.state.user.id;
+    const id = "2886f4be-4d79-4b22-829c-c38036f6ede1";
     if (!body.name || !body.content) {
       throw {
         code: 403,

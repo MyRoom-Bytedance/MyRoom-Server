@@ -13,6 +13,12 @@ MYSQL_PWD  = 你的密码
 MYSQL_DB   = 你创建的数据库名称
 
 JWT_SECRET = jwt的密钥，随意
+
+END_POINT = sts.aliyuncs.com
+ACCESS_KEY_ID = 你的AccessKeyID
+ACCESS_KEY_SECRET = 你的AccessKeySecret
+ASSUME_ROLE_ARN = 你的AssumeRoleARN
+
 ```
 
 ```bash
