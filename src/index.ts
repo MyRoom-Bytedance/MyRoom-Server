@@ -29,6 +29,7 @@ dataSource
           /\/user\/login/,
           /\/home\/list/,
           /\/home\/details/,
+          /\/project\//,
         ],
       })
     );
