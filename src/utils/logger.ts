@@ -1,7 +1,7 @@
-import { Context } from 'koa';
+import { Context, Next } from 'koa';
 
 export default function logger() {
-  return async (ctx: Context, next: () => Promise<void>) => {
+  return async (ctx: Context, next: Next) => {
     const start = Date.now();
     await next();
     const ms = Date.now() - start;

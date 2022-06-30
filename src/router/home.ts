@@ -6,6 +6,12 @@ const home = new Router();
 
 home.get("/list", HomeController.getList);
 
-home.get("/", HomeController.getDetailsById);
+home.get("/details", HomeController.getDetailsById);
+
+home.post("/add", HomeController.addHome);
+
+home.post("/update", HomeController.updateHome);
+
+home.get("/delete", HomeController.deleteHome);
 
 export default home;
