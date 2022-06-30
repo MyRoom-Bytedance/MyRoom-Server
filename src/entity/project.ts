@@ -11,7 +11,7 @@ export class Project {
   @Column({comment: '项目名称'})
   name: string;
 
-  @Column({comment: '项目内容'})
+  @Column({comment: '项目内容', type: 'text'})
   content: string;
 
   @CreateDateColumn()
