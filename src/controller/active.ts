@@ -18,10 +18,11 @@ export default class ActiveController {
         code: 403,
       }
     }
-    await ActiveService.setActiveProject(projectId);
+    const active = await ActiveService.setActiveProject(projectId);
     ctx.body = {
       status: 200,
       msg: "success",
+      data: active
     };
   }
 }
